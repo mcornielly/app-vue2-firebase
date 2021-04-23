@@ -1,10 +1,15 @@
 <template>
   <div class="container">
-      <h1>Iniciov</h1>
-      <ul>
-        <li v-for="(item, index) in tasks" :key="index">
+      <h1>Inicio</h1>
+        <router-link to="/crear" class="btn btn-primary btn-block">Nueva Tarea</router-link>
+      <hr>
+      <ul class="list-group">
+        <li class="list-group-item" v-for="(item, index) in tasks" :key="index">
           {{ item.name }} - {{ item.id }}
-          <router-link class="btn btn-dark" :to="{name: 'Edit',params: {id: item.id}}">Editar</router-link>
+          <div class="float-right">
+            <router-link class="btn btn-dark btn-sm mr-2" :to="{name: 'Edit',params: {id: item.id}}">Editar</router-link>
+            <button class="btn btn-danger btn-sm" @click="deleteTask(item.id)">Eliminar</button>
+          </div>
         </li>
       </ul>
   </div>
@@ -21,7 +26,7 @@ export default {
     this.getTasks()
   },
   methods: {
-    ...mapActions(['getTasks'])
+    ...mapActions(['getTasks', 'deleteTask'])
   },
   computed: {
     ...mapState(['tasks'])
